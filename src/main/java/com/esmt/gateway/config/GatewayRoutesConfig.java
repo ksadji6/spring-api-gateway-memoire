@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayRoutesConfig {
 
-    @Bean
+   /* @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         //Ici cest pour definir les routes à utiliser pour aller vers identity-service à partir du port de la gateway
         return builder.routes()
@@ -33,5 +33,5 @@ public class GatewayRoutesConfig {
                         .uri("lb://project-service")
                 )
                 .build();
-    }
+    }*/
 }

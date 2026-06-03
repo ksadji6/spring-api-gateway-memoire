@@ -19,7 +19,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     //Dans cette classe, on verifie les token voir s'il est valide
     @Autowired
     private RouteValidator validator;
-    @Override
+    /*@Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
@@ -43,6 +43,30 @@ public class AuthFilter implements GlobalFilter, Ordered {
             log.info("[GATEWAY] Token reçu : {}", authHeader);
         }
 
+        return chain.filter(exchange);
+    }*/
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        ServerHttpRequest request = exchange.getRequest();
+
+        // 1. Autoriser systématiquement les OPTIONS (Preflight CORS)
+        if ("OPTIONS".equals(request.getMethod().name())) {
+            return chain.filter(exchange);
+        }
+
+        if (validator.isSecured.test(request)) {
+            if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                log.error("[GATEWAY] Header Authorization manquant !");
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
+            }
+
+            // Logique de validation du token ici...
+            // Si tout est OK :
+            return chain.filter(exchange);
+        }
+
+        // Si la route n'est pas sécurisée, on laisse passer
         return chain.filter(exchange);
     }
     @Override
