@@ -23,6 +23,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
+        if ("OPTIONS".equals(request.getMethod().name())) {
+            return chain.filter(exchange);
+        }
+
         //est-ce que la route est sécurisée ? verif token
         if (validator.isSecured.test(request)) {
             log.info("[GATEWAY] Vérification du token pour : {}", request.getURI().getPath());

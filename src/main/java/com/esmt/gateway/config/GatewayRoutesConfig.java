@@ -24,7 +24,7 @@ public class GatewayRoutesConfig {
                 )
                 //route vers project_service
                 .route("project-service", r -> r
-                        .path("/api/projects/**", "/api/tasks/**", "/api/statistiques/**", "/api/projects/v3/api-docs")
+                        .path( "/api/projects/**", "/api/projects/v3/api-docs")
                         .filters(f -> f
                                 .circuitBreaker(c -> c
                                         .setName("projectCB")

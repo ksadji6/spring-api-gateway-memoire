@@ -3,7 +3,6 @@ package com.esmt.gateway.config;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 
-import java.net.URI;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -14,7 +13,7 @@ public class RouteValidator {
     //ce sont les routes aux quelles on peut acceder sans avoir besoin de token
     public static final List<String> openApiEndpoints = List.of(
             "/api/auth/login",
-            "v3/api-docs",       // 💡 Sans le slash au début pour matcher n'importe où dans l'URL !
+            "v3/api-docs",
             "swagger-ui",
             "swagger-config",
             "webjars"
