@@ -13,6 +13,9 @@ public class RouteValidator {
     //ce sont les routes aux quelles on peut acceder sans avoir besoin de token
     public static final List<String> openApiEndpoints = List.of(
             "/api/auth/login",
+            "/api/users/verify",
+            "/api/users/exists",
+            "/api/auth/update-password",
             "v3/api-docs",
             "swagger-ui",
             "swagger-config",
